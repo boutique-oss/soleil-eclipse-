@@ -121,6 +121,7 @@
   </details>
 
   <p class="foot" id="foot"></p>
+  <p class="foot" id="visits" hidden style="margin-top:4px;letter-spacing:.04em"></p>
 
 <script>
 const rad=Math.PI/180, deg=180/Math.PI;
@@ -309,5 +310,17 @@ render();
 <!-- Statistiques de visite (GoatCounter) — sans cookie, RGPD-friendly -->
 <script data-goatcounter="https://boutique-oss.goatcounter.com/count"
         async src="//gc.zgo.at/count.js"></script>
+
+<!-- Compteur visible : total des visites du site -->
+<script>
+fetch("https://boutique-oss.goatcounter.com/counter/TOTAL.json")
+  .then(r => r.ok ? r.json() : Promise.reject())
+  .then(d => {
+    const el = document.getElementById("visits");
+    el.textContent = "👁 " + d.count + " visites";
+    el.hidden = false;
+  })
+  .catch(() => {});
+</script>
 </body>
 </html>
